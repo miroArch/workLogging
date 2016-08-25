@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-8-7 14:56:01 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.work.model.Logging" table="LOGGING">
+        <id name="id" type="java.lang.String">
+            <column name="ID" />
+            <generator class="uuid"/>
+        </id>
+        <property name="loggingText" type="text" length="65535">
+            <column name="LOGGINGTEXT" />
+        </property>
+        <property name="date" type="java.lang.String">
+            <column name="DATE" />
+        </property>
+        <property name="time" type="java.lang.String">
+            <column name="TIME" />
+        </property>
+        <many-to-one name="user" class="com.work.model.User" fetch="join" lazy="false">
+            <column name="USER" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

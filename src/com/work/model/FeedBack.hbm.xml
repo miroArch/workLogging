@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-8-7 14:56:01 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.work.model.FeedBack" table="FEEDBACK">
+        <id name="id" type="java.lang.String">
+            <column name="ID" />
+            <generator class="uuid"/>
+        </id>
+        <property name="feedBackText" type="java.lang.String">
+            <column name="FEEDBACKTEXT" />
+        </property>
+        <property name="dateTime" type="java.lang.String">
+            <column name="DATETIME" />
+        </property>
+        <many-to-one name="user" class="com.work.model.User" fetch="join">
+            <column name="USER" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
