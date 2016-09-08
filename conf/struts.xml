@@ -7,26 +7,14 @@
 
 	<constant name="struts.ui.theme" value="simple" />
 	<constant name="struts.i18n.encoding" value="UTF-8" />
-
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
 
 	<package name="a" namespace="/" extends="json-default">
-
-		<!-- 配置自定义拦截器LoginedCheckInterceptor -->
-		<interceptors>
-			<interceptor name="loginedCheck" class="com.work.interceptor.LoginedCheckInterceptor" />
-			<interceptor-stack name="mystack">
-				<interceptor-ref name="loginedCheck" />
-				<interceptor-ref name="defaultStack" />
-			</interceptor-stack>
-		</interceptors>
-		<default-interceptor-ref name="mystack"></default-interceptor-ref>
 
 		<!-- 定义全局result -->
 		<global-results>
 			<!-- 定义名为exception的全局result -->
 			<result name="exception">/exception.jsp</result>
-			<result name="toLoginPage" type="redirect">/login.jsp</result>
 		</global-results>
 
 		<!-- 定义全局异常映射 -->

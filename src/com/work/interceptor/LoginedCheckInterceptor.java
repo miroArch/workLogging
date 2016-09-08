@@ -25,7 +25,7 @@ public class LoginedCheckInterceptor extends AbstractInterceptor {
 		response.setDateHeader("Expires", 0);
 		System.out.println("1111");
 		// 对登录与注销请求直接放行,不予拦截
-		if (url.indexOf("visitor-login") != -1 || url.indexOf("logout.action") != -1) {
+		if (url.indexOf("visitor-toLoginPage") != -1||url.indexOf("visitor-login") != -1 || url.indexOf("logout.action") != -1) {
 			return ai.invoke();
 		}
 		if (ServletActionContext.getRequest().getSession().getAttribute("user") == null) {

@@ -39,9 +39,9 @@ body {
 				<div class="alert alert-info"><b>你好！</b>${sessionScope.user.userName}，现在时间是<%= TimeUtils.getNow(TimeUtils.YMD) %></div>
 				<div class="panel-heading">记录下自己的工作日志</div>
 				<div class="panel-body">
+					<div class="alert alert-danger <c:if test="${msg == null }">hidden</c:if>">${msg }</div>
 					<form action="${pageContext.request.contextPath }/user/userAction-saveLogging" method="post">
 						<textarea class="form-control" rows="10" name="logging.loggingText"></textarea><br />
-						<div class="alert alert-danger <c:if test="${msg == null }">hidden</c:if>">${msg }</div>
 							
 						<div align="right">
 							<input class="btn btn-default" type="reset" id="" name="" value="重置" />
