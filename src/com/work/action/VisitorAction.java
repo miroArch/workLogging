@@ -33,17 +33,16 @@ public class VisitorAction extends ActionSupport implements RequestAware ,Sessio
 	@Autowired
 	private VisitorService visitorService;
 
-	private String username;
-	private String password;
+	private User user;
 	private String autoLogin;
 
 	/**
-	 * 前往登录页面
+	 * 自动到首页的时候才自动登陆
 	 * @return
 	 * @author 张昊
-	 * @date 2016年8月8日
+	 * @date 2016年9月11日
 	 */
-	public String toLoginPage(){
+	public String autoToLoginPage(){
 		//检查Cookie是否存放数据
 		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
 		//如果cookie中存放着用户名和密码，进行登陆
@@ -58,6 +57,17 @@ public class VisitorAction extends ActionSupport implements RequestAware ,Sessio
 			} catch (UserException e) {}
 		}
 		//如果不成功则去登录页面
+		return "toLoginPage";
+	}
+	
+	
+	/**
+	 * 前往登录页面
+	 * @return
+	 * @author 张昊
+	 * @date 2016年8月8日
+	 */
+	public String toLoginPage(){
 		return "toLoginPage";
 	}
 
@@ -88,17 +98,12 @@ public class VisitorAction extends ActionSupport implements RequestAware ,Sessio
 	 * @return
 	 */
 	public String login(){
-		//封装登录表单
-		User formUser = new User();
-		formUser.setUserName(username);
-		formUser.setPassword(username);
-		
 		String result = null;
 		try {
-			User db_User = visitorService.login(username, password);
+			User db_User = visitorService.login(user.getUserName(),user.getPassword());
 			session.put("user", db_User);
 			//查看是否是自动登陆
-			if(autoLogin!=null&&autoLogin.equals("yes")){
+			if(autoLogin!=null && autoLogin.equals("yes")){
 				Cookie cookie = new Cookie(URLEncoder.encode(db_User.getUserName()), db_User.getPassword());
 				cookie.setMaxAge(60*60*24*365);
 				ServletActionContext.getResponse().addCookie(cookie);
@@ -118,15 +123,9 @@ public class VisitorAction extends ActionSupport implements RequestAware ,Sessio
 	 * @return 
 	 */
 	public String register() {
-
-		//封装注册表单
-		User formUser = new User();
-		formUser.setUserName(username);
-		formUser.setPassword(password);
-		
 		String result = null;
 		try {
-			visitorService.register(formUser);
+			visitorService.register(user);
 			result = "REGISTSUCCESS";
 		} catch (UserException e) {
 			request.put("error", e.getMessage());//将错误信息放到request中，然后显示给用户
@@ -137,22 +136,16 @@ public class VisitorAction extends ActionSupport implements RequestAware ,Sessio
 
 	
 	
-	public String getUsername() {
-		return username;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getPassword() {
-		return password;
-	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	public String getAutoLogin() {
 		return autoLogin;
 	}

@@ -6,7 +6,7 @@ public class User {
 	private String id;
 	private String userName;
 	private String password;
-	private String RealName;
+	private String realName;
 	private String phoneNum;
 	private String email;
 
@@ -34,12 +34,13 @@ public class User {
 		this.password = password;
 	}
 
+	
 	public String getRealName() {
-		return RealName;
+		return realName;
 	}
 
 	public void setRealName(String realName) {
-		RealName = realName;
+		this.realName = realName;
 	}
 
 	public String getPhoneNum() {
