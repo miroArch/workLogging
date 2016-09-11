@@ -26,10 +26,10 @@ body {
 		<div style="width: 300px;">
 			<h1 style="color: #FFFFFF; padding-bottom: 10px;">工作日志系统登录</h1>
 			<form action="${pageContext.request.contextPath }/visitor-login" method="post">
-				<input type="text" name="username" class="form-control" value="" placeholder="用户名" />
+				<input type="text" name="user.userName" class="form-control" value="" placeholder="用户名" />
 				<div class="row">
 					<div class="col-md-9 col-xs-9">
-						<input type="password" name="password" class="form-control" placeholder="密码" />
+						<input type="password" name="user.password" class="form-control" placeholder="密码" />
 					</div>
 					<div class="col-md-3 col-xs-3" style="padding-left: 0">
 						<button class="btn btn-primary pull-right" type="button" id="autoButton">

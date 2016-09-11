@@ -128,6 +128,7 @@ public class VisitorAction extends ActionSupport implements RequestAware ,Sessio
 			visitorService.register(user);
 			result = "REGISTSUCCESS";
 		} catch (UserException e) {
+			request.put("user", user);//将错误信息放到request中，然后显示给用户
 			request.put("error", e.getMessage());//将错误信息放到request中，然后显示给用户
 			result = "REGISTERROR";
 		}
@@ -140,11 +141,9 @@ public class VisitorAction extends ActionSupport implements RequestAware ,Sessio
 		return user;
 	}
 
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 	public String getAutoLogin() {
 		return autoLogin;

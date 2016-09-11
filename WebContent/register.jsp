@@ -26,12 +26,12 @@ body {
 		<div style="width: 300px;">
 			<h1 style="color: #FFFFFF; padding-bottom: 20px;">工作日志系统注册</h1>
 			<form action="${pageContext.request.contextPath }/visitor-register" method="post">
-				<input type="text" class="form-control" name="user.userName" placeholder="用户名" />
-				<input type="password" class="form-control"  name="user.password" id="password" placeholder="密码" />
-				<input type="password" class="form-control" id="confirm-password"  placeholder="确认密码" />
-				<input type="text" class="form-control" name="user.realName" placeholder="姓名" />
-				<input type="email" class="form-control" name="user.email" placeholder="邮箱" />
-				<input type="text" class="form-control" name="user.phoneNum" placeholder="手机号" />
+				<input type="text" class="form-control" name="user.userName" placeholder="用户名" value="${user.userName}" />
+				<input type="password" class="form-control"  name="user.password" id="password" placeholder="密码"/>
+				<input type="password" class="form-control" id="confirm-password"  placeholder="确认密码"/>
+				<input type="text" class="form-control" name="user.realName" placeholder="姓名" value="${user.realName}"/>
+				<input type="email" class="form-control" name="user.email" placeholder="邮箱" value="${user.email}"/>
+				<input type="text" class="form-control" name="user.phoneNum" placeholder="手机号" value="${user.phoneNum}"/>
 				<div class="row">
 					<div class="col-md-6 col-xs-6">
 						<input type="button" onclick="window.location.href='${pageContext.request.contextPath }/visitor-toLoginPage'" class="form-control"

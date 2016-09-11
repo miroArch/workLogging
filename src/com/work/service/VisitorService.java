@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.work.exception.UserException;
 import com.work.model.User;
 import com.work.utils.StrUtil;
+import com.work.utils.ValidateUtils;
 
 /**
  * 游客Service
@@ -53,6 +54,12 @@ public class VisitorService extends SuperService{
 		if(form_User==null||StrUtil.isEmpty(form_User.getUserName())
 				||StrUtil.isEmpty(form_User.getPassword())){
 			throw new UserException("注册参数不全");
+		}else if(!ValidateUtils.isPhoneNum(form_User.getPhoneNum())){
+			throw new UserException("手机号格式不正确");
+		}else if(!ValidateUtils.isChineseName(form_User.getRealName())){
+			throw new UserException("姓名请使用中文名");
+		}else if(!ValidateUtils.isEnglishName(form_User.getUserName())){
+			throw new UserException("用户名请使用英文字母");
 		}
 		//2.查看用户是否存在
 		User db_User = userDAO.getByUserName(form_User.getUserName());

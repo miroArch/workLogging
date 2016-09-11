@@ -11,7 +11,7 @@ public class ValidateUtils {
 	 * @author 张昊
 	 * @date 2016年9月11日
 	 */
-	public boolean isPhoneNum(String s) {
+	public static boolean isPhoneNum(String s) {
 		return !(StringUtils.isEmpty(s) || s.length() != 11 || !StringUtils.isNumeric(s));
 	}
 	
@@ -23,8 +23,17 @@ public class ValidateUtils {
 	 * @author 张昊
 	 * @date 2016年9月11日
 	 */
-	public boolean isChineseName(String s){
+	public static boolean isChineseName(String s){
 		return s.matches("[\u4E00-\u9FA5]+")&&!StringUtils.isEmpty(s)&&s.length()<4;
+	}
+
+
+	public static boolean isEnglishName(String userName) {
+		return userName!=null&&userName.matches("[A-z]+-?[A-z]+");
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(isEnglishName("asd大"));
 	}
 	
 }
