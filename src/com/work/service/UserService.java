@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.work.exception.UserException;
+import com.work.model.Comment;
 import com.work.model.Logging;
 import com.work.model.User;
 import com.work.utils.StrUtil;
@@ -54,6 +55,53 @@ public class UserService extends SuperService{
 		//0.创建一个存放数据的容器
 		List<Logging> allLogging  = loggingDAO.getByDate(date);
 		return allLogging;
+	}
+
+	/**
+	 * 根据日志记事的ID查看其评论
+	 * @param id
+	 * @return
+	 */
+	public List<Comment> getCommentsByLoggingId(String loggingId) {
+		return commentDAO.getCommentsByLoggingId(loggingId);
+	}
+
+	/**
+	 * 根据日志ID返回日志对象
+	 * @param id
+	 * @return
+	 */
+	public Logging getLoggingById(String id) {
+		return loggingDAO.get(id);
+	}
+
+	/**
+	 * 添加评论
+	 * @param session_User
+	 * @param comment
+	 * @throws UserException 
+	 */
+	public void addComment(User session_User, Comment comment) throws UserException {
+		//1.检查参数
+		if(session_User==null||comment==null||comment.getContent()==null||comment.getLogging()==null){
+			throw new UserException("评论参数不全");
+		}
+		//2.进行计算时间
+		String now = TimeUtils.getNow(TimeUtils.YMDHM);
+		comment.setCreateTime(now);
+		comment.setUser(session_User);
+		//3.进行保存
+		commentDAO.save(comment);
+	}
+
+	/**
+	 * 为某个评论点赞
+	 */
+	public void addLikeComment(String id) {
+		Comment comment = commentDAO.get(id);
+		int like = comment.getLikeCount() == null ? 0 :comment.getLikeCount();
+		comment.setLikeCount(like+1);
+		commentDAO.update(comment);
 	}
 	
 }

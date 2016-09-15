@@ -64,7 +64,10 @@
 			<result name="TOADDLOGGINGPAGE">/user/addLogging.jsp</result>
 			<result name="SAVESUCCESS">/user/addLogging.jsp</result>
 			<result name="SAVEERROR">/user/addLogging.jsp</result>
-			<result name="VIEWSUCCESS">/viewAllLogging.jsp</result>
+			<result name="VIEWSUCCESS">/user/viewAllLogging-new.jsp</result>
+			<result name="toViewCommentPage">/user/doComment.jsp</result>
+			<result name="toViewCommentByLoggingId" type="redirectAction">userAction-viewCommentByLoggingId?logging.id=${comment.logging.id}</result>
+			<result name="addLikeSucess" type="json"></result>
 		</action>
 	</package>
 

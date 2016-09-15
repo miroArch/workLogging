@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.work.exception.UserException;
+import com.work.model.Comment;
 import com.work.model.Logging;
 import com.work.model.User;
 import com.work.service.UserService;
@@ -30,8 +31,8 @@ public class UserAction extends ActionSupport implements RequestAware ,SessionAw
 	
 	private Logging logging;
 	private String date;
-	
-	
+	private Comment comment;
+	private String status;
 	
 	public String toAddLoggingPage(){
 		return "TOADDLOGGINGPAGE";
@@ -73,6 +74,42 @@ public class UserAction extends ActionSupport implements RequestAware ,SessionAw
 		return "VIEWSUCCESS";
 	}
 	
+	/**
+	 * 根据记事ID查看其评论
+	 * @return
+	 */
+	public String viewCommentByLoggingId(){
+		Logging logging_tmp = userService.getLoggingById(logging.getId());
+		List<Comment> list = userService.getCommentsByLoggingId(logging.getId());
+		request.put("comments", list);
+		request.put("logging_tmp", logging_tmp);
+		return "toViewCommentPage";
+	}
+	
+	/**
+	 * 添加评论
+	 * @return
+	 */
+	public String addCommentToLoggingId(){
+		User session_User = (User)session.get("user");
+		try {
+			userService.addComment(session_User,comment);
+			return "toViewCommentByLoggingId";
+		} catch (UserException e) {
+			request.put("msg", e.getMessage());
+			return "toViewCommentByLoggingId";
+		}
+	}
+	
+	/**
+	 * 为某条评论点赞
+	 * @return
+	 */
+	public String likeComment(){
+		userService.addLikeComment(comment.getId());
+		status = new String("点赞成功");
+		return "addLikeSucess";
+	}
 	
 	
 	@Override
@@ -84,7 +121,22 @@ public class UserAction extends ActionSupport implements RequestAware ,SessionAw
 	public void setRequest(Map<String, Object> arg0) {
 		request = arg0;
 	}
+	
+	public String getStatus() {
+		return status;
+	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
 
 	public Logging getLogging() {
 		return logging;
